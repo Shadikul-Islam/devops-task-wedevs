@@ -1,11 +1,11 @@
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: infrastructure
   namespace: flux-system
 spec:
   interval: 5m
-  path: ./infrastructure
+  path: ./cluster/infrastructure  # relative to repo root
   prune: true
   sourceRef:
     kind: GitRepository
