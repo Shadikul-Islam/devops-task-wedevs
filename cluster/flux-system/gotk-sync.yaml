@@ -13,15 +13,16 @@ spec:
     name: flux-system
   url: ssh://git@github.com/Shadikul-Islam/devops-task-wedevs
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2   # 👈 update this
 kind: Kustomization
 metadata:
   name: flux-system
   namespace: flux-system
 spec:
-  interval: 10m0s
+  interval: 1m
   path: ./cluster
   prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
+
