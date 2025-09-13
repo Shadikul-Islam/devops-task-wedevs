@@ -11,4 +11,8 @@ spec:
     kind: GitRepository
     name: flux-system
   validation: client
+  # explicitly include subdirectories
+  resources:
+    - ingress-nginx
+    - metallb
 
