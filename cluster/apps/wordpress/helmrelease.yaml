@@ -13,16 +13,23 @@ spec:
         kind: HelmRepository
         name: bitnami
         namespace: flux-system
+  valuesFrom:
+    - kind: Secret
+      name: wordpress-secret
+      valuesKey: wordpressUsername
+    - kind: Secret
+      name: wordpress-secret
+      valuesKey: wordpressPassword
+    - kind: Secret
+      name: wordpress-secret
+      valuesKey: dbUser
+    - kind: Secret
+      name: wordpress-secret
+      valuesKey: dbPassword
   values:
-    wordpressUsername: admin
-    wordpressPassword: changeme
     externalDatabase:
       host: mysql.default.svc.cluster.local
-      user: wordpress
-      password: wordpress
-      database: wordpress
     ingress:
       enabled: true
       hostname: app.local
       ingressClassName: nginx
-
