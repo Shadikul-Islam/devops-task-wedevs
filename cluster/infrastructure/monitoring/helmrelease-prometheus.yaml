@@ -1,0 +1,18 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: prometheus
+  namespace: monitoring
+spec:
+  interval: 5m
+  install:
+    createNamespace: true
+  chart:
+    spec:
+      chart: prometheus
+      version: "19.10.0"  # choose a stable version
+      sourceRef:
+        kind: HelmRepository
+        name: prometheus-community
+        namespace: flux-system
+
