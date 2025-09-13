@@ -1,19 +1,22 @@
-apiVersion: helm.toolkit.fluxcd.io/v2beta1
+apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: mysql
   namespace: default
 spec:
+  interval: 5m
   chart:
     spec:
       chart: mysql
-      version: 8.8.26
+      version: 9.19.0   # check latest in Bitnami repo
       sourceRef:
         kind: HelmRepository
         name: bitnami
         namespace: flux-system
-  valuesFrom:
-    - kind: Secret
-      name: mysql-secret
-      valuesKey: password
+  values:
+    auth:
+      existingSecret: mysql-secret
+    primary:
+      persistence:
+        enabled: false   # disable PVCs for Vagrant/local testing
 

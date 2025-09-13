@@ -1,27 +1,28 @@
-apiVersion: helm.toolkit.fluxcd.io/v2beta1
+apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: wordpress
   namespace: default
 spec:
+  interval: 5m
   chart:
     spec:
       chart: wordpress
-      version: 15.0.0
+      version: 15.2.23
       sourceRef:
         kind: HelmRepository
         name: bitnami
         namespace: flux-system
   values:
     wordpressUsername: admin
-    wordpressPassword: admin123
-    mariadb:
-      enabled: false
+    wordpressPassword: changeme
     externalDatabase:
       host: mysql.default.svc.cluster.local
-      user: wpuser
-      password:
-        secretKeyRef:
-          name: mysql-secret
-          key: password
+      user: wordpress
+      password: wordpress
+      database: wordpress
+    ingress:
+      enabled: true
+      hostname: app.local
+      ingressClassName: nginx
 
