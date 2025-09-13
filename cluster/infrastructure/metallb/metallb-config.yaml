@@ -1,15 +1,18 @@
-apiVersion: metallb.io/v1beta1
-kind: IPAddressPool
+apiVersion: v1
+kind: Namespace
 metadata:
-  name: default-pool
-  namespace: metallb-system
-spec:
-  addresses:
-  - 192.168.33.240-192.168.33.250   # example for Vagrant NAT subnet
+  name: metallb-system
 ---
-apiVersion: metallb.io/v1beta1
-kind: L2Advertisement
+apiVersion: v1
+kind: ConfigMap
 metadata:
-  name: default-l2
   namespace: metallb-system
+  name: config
+data:
+  config: |
+    address-pools:
+    - name: default
+      protocol: layer2
+      addresses:
+      - 192.168.56.240-192.168.56.250
 
